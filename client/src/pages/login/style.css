@@ -24,9 +24,9 @@ form{
 .inp {
     padding: 10px;
     border:none;
-    border-color: teal;
+    /* border-color: teal; */
     cursor: pointer;
-    color: white;
+    color: black;
 
 }
 

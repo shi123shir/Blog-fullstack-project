@@ -1,5 +1,6 @@
 const userModel = require("../model/userModel")
 const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
 
 
 
@@ -8,9 +9,9 @@ const register = async(req,res) =>{
     try {
         let data = req.body
 
-    const {userName, email, password} = data
+    const {username, email, password} = data
 
-    if(!userName || !email || !password)
+    if(!username || !email || !password)
       return  res
       .status(400)
       .send({status: false, message: "please fill the required field "})
@@ -25,9 +26,10 @@ const register = async(req,res) =>{
 
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      const user = new userModel({ userName, email, password: hashedPassword });
+      const user = new userModel({ username, email, password: hashedPassword });
       await user.save();
         
+      return res.status(201).send({status:true, message:"user created successfully" , data:user})
     } catch (err) {
         return res
         .status(500)
@@ -62,16 +64,24 @@ const login = async(req,res) => {
             message: "Invlid username or password",
           });
         }
-        return res.status(200).send({
-          status: true,
-          messgae: "login successfully",
-          user,
-        });
+      
+        const token = jwt.sign({
+          id:user._id,
+          iat: new Date().getTime(),
+          exp: Math.floor(Date.now() / 1000) + 10 * 60 * 60,
+        },"jwtkey")
+
+        res.cookie("access_token",token,{
+          httpOnly:true
+        })
+        .status(200)
+        .send({status:true, message:"login successful",data: { userId: user._id, token: token }})
+
+
       } catch (error) {
-        console.log(error);
         return res.status(500).send({
           status: false,
-          message: "Error In Login Callcback",
+          message: "server error",
           error,
         });
       }

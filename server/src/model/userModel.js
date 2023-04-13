@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 
 const userSchema = mongoose.Schema({
-    userName:{
+    username:{
         type: String , 
         required : true, 
     }, 
@@ -16,10 +16,6 @@ const userSchema = mongoose.Schema({
         type: String, 
         required: true,
     },
-
-    img:{
-        type: String
-    }
 
 
 },{timestamp: true})

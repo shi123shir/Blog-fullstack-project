@@ -2,13 +2,17 @@ const express = require("express")
 const mongoose = require("mongoose")
 const route = require("./router/route")
 const app = express()
+const cors = require("cors")
+const cookie = require("cookie-parser")
 const dotenv = require("dotenv")
 dotenv.config({path:"../.env"})
 
 app.use(express.json())
 
+app.use(cookie())
 
-  console.log(process.env.Mongo_Url)
+app.use(cors())
+
 mongoose.connect(process.env.Mongo_Url , {
     useNewUrlParser : true
 })
@@ -16,7 +20,7 @@ mongoose.connect(process.env.Mongo_Url , {
 .catch((err)=>console.log("its an error", err))
 
 
-app.use("/app",route)
+app.use("/api",route)
 
 const port = process.env.PORT || 8080
 

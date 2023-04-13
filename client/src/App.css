@@ -3,6 +3,11 @@
   justify-content: center;
 }
 
-.contain4{
+/* .contain4{
     width: 1024px;
+} */
+
+.link{
+  text-decoration: none;
+  color: inherit;
 }

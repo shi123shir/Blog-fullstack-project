@@ -24,11 +24,13 @@ form{
 .inp {
     padding: 10px;
     border:none;
-    border-color: teal;
+    /* background-color:rgb(98, 235, 126); */
     cursor: pointer;
-    color: white;
+    color: black;
 
 }
+
+
 
 .bnt {
     padding: 10px;
