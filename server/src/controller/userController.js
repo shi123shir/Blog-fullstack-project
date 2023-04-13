@@ -69,7 +69,7 @@ const login = async(req,res) => {
           id:user._id,
           iat: new Date().getTime(),
           exp: Math.floor(Date.now() / 1000) + 10 * 60 * 60,
-        },"jwtkey")
+        },process.env.jwt)
 
         res.cookie("access_token",token,{
           httpOnly:true
