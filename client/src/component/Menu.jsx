@@ -1,26 +1,23 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useState, useEffect } from 'react'
 
-const Menu = () => {
-  const posts = [
-    {
-      id: 1,
-      title :"Lorem ipsumm dolor sit amet",
-      disc :"Lorem ipsumm dolor sit amet",
-      img: "https://images.pexels.com/photos/11837301/pexels-photo-11837301.jpeg?auto=compress&cs=tinysrgb&w=400&lazy=load"
-    },
-    {
-      id: 2,
-      title :"Lorem ipsumm dolor sit amet",
-      disc :"Lorem ipsumm dolor sit amet",
-      img: "https://images.pexels.com/photos/8182407/pexels-photo-8182407.jpeg?auto=compress&cs=tinysrgb&w=400&lazy=load"
-    },
-    {
-      id: 3,
-      title :"Lorem ipsumm dolor sit amet",
-      disc :"Lorem ipsumm dolor sit amet",
-      img: "https://images.pexels.com/photos/4514301/pexels-photo-4514301.jpeg?auto=compress&cs=tinysrgb&w=400&lazy=load"
+const Menu = ({cat}) => {
+  const [posts, setPost] = useState([])
+
+  useEffect (()=>{
+ 
+    const fetchData = async ()=>{
+      try {
+        
+        const res = await axios.get(`http://localhost:8080/posts/?cat=${cat}}`);
+        setPost(res.data.data)
+      } catch (err) {
+        console.log(err)
+      }
     }
-  ]
+
+
+  }, [cat])
   return (
     <div className='menu'>
         <h1>other post you like</h1>

@@ -75,7 +75,7 @@ const login = async(req,res) => {
           httpOnly:true
         })
         .status(200)
-        .send({status:true, message:"login successful",data: { userId: user._id, token: token }})
+        .send({status:true, message:"login successful",data: { userId: user._id,userName :user.username, token: token }})
 
 
       } catch (error) {
@@ -88,9 +88,12 @@ const login = async(req,res) => {
 }
 
 
-// const logout = async (req,res) => {
-
-// }
+const logout = async (req,res) => {
+  res.clearCookie("access_token",{
+    sameSite:"none",
+    secure:true
+  } ).status(200).send({message:"user logout"})
+}
  
 
-module.exports = {register,login}
+module.exports = {register,login,logout}

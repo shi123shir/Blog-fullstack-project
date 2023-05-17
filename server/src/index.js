@@ -5,9 +5,12 @@ const app = express()
 const cors = require("cors")
 const cookie = require("cookie-parser")
 const dotenv = require("dotenv")
+ const multer = require("multer")
 dotenv.config({path:"../.env"})
 
 app.use(express.json())
+
+app.use(multer().any())
 
 app.use(cookie())
 
